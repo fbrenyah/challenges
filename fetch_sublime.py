@@ -127,6 +127,13 @@ def getSSHKeys(confs):
 def readyVolumes(confs):
     # must loop this for all possible instances
     print("Attempting to mount volumes...")
+    
+    global maxCount
+    if maxCount < 5: # This value must be between 5 and 1000. 
+        maxCount = 5
+    else:
+        pass
+
     client = ec2.meta.client
     response = client.describe_volumes(
         Filters=[
@@ -136,7 +143,7 @@ def readyVolumes(confs):
             }
         ],
         DryRun=False,
-        MaxResults=len(confs['Volumes'].keys())  # is a value, may not be able to call keys() on it, needs to be dict
+        MaxResults=maxCount
     )
 
     for v in response['Volumes']:
@@ -149,7 +156,7 @@ def readyVolumes(confs):
         print("\tTime:", v['Attachments']['AttachTime'])
 
     # format and mount drives, needs script
-    with open('~/.aws/credentials') as f:
+    with open('./aws_creds') as f:
         for line in f:
             if line.find('aws_access_key_id') != -1:
                 aws_key = line.split(' = ', 1)[1]
@@ -228,7 +235,7 @@ def addUsers():
     try:
         return open('./ec2_boot_confs.sh', 'r').read()
     except:
-        print("\t'Could' not read bash file ec2_boot_confs.sh to add users!")
+        print("\t'Could not read bash file ec2_boot_confs.sh to add users!")
         forceQuit()
 
 
@@ -262,7 +269,7 @@ def buildZeInstance(img_id, key_name, confs):
             Description=group_desc
         )
         print("Created security group '{}' in VPC '{}'...".format(group_name, default_vpc.id))
-    except ClientError:
+    except ClientError as e:
         print("\tCould not create security group: {}. {}".format(group_name, e))
         forceQuit()
 
@@ -341,10 +348,6 @@ def startZeInstance(inst_id): #unused for now
 if __name__ == '__main__':
     # Setting vars for use across all functions
     print('Please standby...')
-
-    n = len(sys.argv)
-    for i in range(1,n):
-        print('Arg #{}: {}'.format(i, sys.argv[i]))
 
     yaml_file = sys.argv[1]
     global availZone

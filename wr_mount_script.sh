@@ -1,6 +1,8 @@
 #!/bin/bash
 # This script mounts volumes it reads from a yaml file
-# This script needs to run first, to build a script that will be sent to instances
+# This needs to run first, to build a script that will be sent to run instances
+# This also copies the aws keys to the local directory
+cp ~/.aws/credentials ./aws_creds
 touch ./mount_volumes.sh
 printf "#!/bin/bash \n" >> ./mount_volumes.sh
 num_dev=$(cat ./*.ml | shyaml get-value server.volumes |grep 'device' |wc -l)
