@@ -151,9 +151,9 @@ def buildZeInstance(img_id, key_name, confs):
         print(e)
         forceQuit()
 
-    group_name = 'ec2_fetchrewards_py2'
-    group_desc = 'ec2_fetchrewards_py2_desc'
-    try:  # get and use default Security Group for instance
+    group_name = 'ec2_fetchrewards_py'
+    group_desc = 'ec2_fetchrewards_py_desc'
+    try:  # set Security Group for instance
         security_group = default_vpc.create_security_group(
             GroupName=group_name,
             Description=group_desc
@@ -164,13 +164,12 @@ def buildZeInstance(img_id, key_name, confs):
         forceQuit()
 
     try:  # set permissions
-        ip_permissions = [{  # HTTP ingress open to anyone
+        ip_permissions = [{ # HTTP ingress open to anyone
             'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80,
             'IpRanges': [{'CidrIp': '0.0.0.0/0'}]}, {  # HTTPS ingress open to anyone
             'IpProtocol': 'tcp', 'FromPort': 443, 'ToPort': 443,
             'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
-        }, {
-            # SSH ingress open to anyone
+        }, { # SSH ingress open to anyone
             'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22,
             'IpRanges': [{'CidrIp': '0.0.0.0/0'}]}]
         security_group.authorize_ingress(IpPermissions=ip_permissions)
@@ -216,21 +215,6 @@ def buildZeInstance(img_id, key_name, confs):
 
 
 # end buildZeInstance()
-
-def startZeInstance(inst_id): #unused for now
-    global ec2
-    instance = ec2.Instance(inst_id)
-    try:
-        instance.start()
-        print("Starting instance, standby...")
-    except Exception as e:
-        print("\tFailed to start instance!", e)
-        forceQuit()
-    else:
-        time.sleep(30)
-
-
-# end startZeInstance()
 
 # do the thing
 if __name__ == '__main__':
