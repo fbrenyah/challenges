@@ -15,7 +15,6 @@ import random
 def create_queue(name):
 	# returns QueueURL
 	# standard queue
-	# default message size of 256KB
 	# five day retention
 	queue = sqs_client.create_queue(
 		QueueName=q_name,
@@ -36,14 +35,13 @@ def retrieve_message(name):
 	end_time=0
 	handle=""
 
-	# poll for 5 messages
 	while True:
 		try:
 			start_time = round(time.time() * 1000)
 			message = sqs_client.receive_message(
 				QueueUrl=queue_url,
 				MaxNumberOfMessages=1,
-				WaitTimeSeconds=2
+				WaitTimeSeconds=5
 			)
 			end_time = round(time.time() * 1000)
 			if message['Messages'] != "":

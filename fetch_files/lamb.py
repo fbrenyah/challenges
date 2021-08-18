@@ -13,10 +13,10 @@ sqs = boto3.client('sqs')
 def lambda_handler(event, context):
 	if event['Records'] != "":
 		for msg in event['Records']:
-			print("\tMessage:", msg['body'])
+			print("Message:", msg['body'])
 			sqs.delete_message(
 				QueueUrl='https://sqs.avail-zone-1.amazonaws.com/ID/QueueName',
 				ReceiptHandle=msg['receiptHandle']
 			)
 	else:
-		print("\tNo message(s) available.")
+		print("No message(s) available.")

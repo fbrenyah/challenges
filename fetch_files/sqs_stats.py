@@ -15,7 +15,6 @@ import random
 def create_queue(name):
 	# returns QueueURL
 	# standard queue
-	# default message size of 256KB
 	# five day retention
 	queue = sqs_client.create_queue(
 		QueueName=q_name,
