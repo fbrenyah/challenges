@@ -30,7 +30,7 @@ public class OTELTracingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         OtlpHttpSpanExporter exporter = OtlpHttpSpanExporter.builder()
-                .setEndpoint("http://dev-collector.fetchrewards.com:4317")
+                .setEndpoint("http://dev-collector.nothing.com:4317")
                 .setTimeout(60, TimeUnit.SECONDS)
                 //.setCompression("gzip")
                 //.addHeader("foo", "bar")

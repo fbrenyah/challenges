@@ -32,7 +32,7 @@ public class OTELService extends IntentService {
         //Sampler traceIdRatioBased = Sampler.traceIdRatioBased(0.5);
 
         OtlpHttpSpanExporter exporter = OtlpHttpSpanExporter.builder()
-                .setEndpoint("http://dev-collector.fetchrewards.com:4317")
+                .setEndpoint("http://dev-collector.nothing.com:4317")
                 .setTimeout(60, TimeUnit.SECONDS)
                 //.setCompression("gzip")
                 //.addHeader("foo", "bar")
