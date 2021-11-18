@@ -38,14 +38,6 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
-
-        if (isMyServiceRunning(OTELService.class)) {
-            binding.serviceStatusTwo.setText(R.string.service_starting);
-        } else if (isMyServiceRunning(OTELTracingService.class)) {
-            binding.serviceStatusTwo.setText(R.string.service_starting);
-        } else {
-            binding.serviceStatusTwo.setText(R.string.service_stoping);
-        }
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

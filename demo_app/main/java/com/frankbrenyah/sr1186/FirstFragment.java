@@ -44,7 +44,7 @@ public class FirstFragment extends Fragment {
         } else if (isMyServiceRunning(OTELTracingService.class)) {
             binding.serviceStatus.setText(R.string.service_starting);
         } else {
-            binding.serviceStatus.setText(R.string.service_stoping);
+            binding.serviceStatus.setText(R.string.service_stopping);
         }
     }
 

@@ -28,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean isBound;
         // OTEL Tracing
         Context ctx = getApplicationContext();
-        Intent otelIntent = new Intent(ctx, MainActivity.class);
+        Intent otelIntent = new Intent(ctx, OTELService.class);
+        //Intent otelTraceIntent = new Intent(ctx, OTELTracingService.class);
         ctx.startService(otelIntent);
+        //ctx.startService(otelTraceIntent);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
