@@ -30,14 +30,14 @@ public class OTELTracingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         /*
         JaegerGrpcSpanExporter grpcExporter = JaegerGrpcSpanExporter.newBuilder()
-                .setEndpoint("dev-collector.fetchrewards.com:4317")
+                .setEndpoint("dev-collector.hostname.com:4317")
                 .setDeadlineMs(30000)   // 30 sec timeout
                 .setServiceName(String.valueOf(R.string.service_name))
                 .build();
         */
 
         OtlpHttpSpanExporter exporter = OtlpHttpSpanExporter.builder()
-                .setEndpoint("http://dev-collector.fetchrewards.com:4317")
+                .setEndpoint("http://dev-collector.hostname.com:4317")
                 .setTimeout(30, TimeUnit.SECONDS)
                 //.setCompression("gzip")
                 //.addHeader("foo", "bar")
