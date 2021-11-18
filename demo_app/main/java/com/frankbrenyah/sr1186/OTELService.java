@@ -46,7 +46,7 @@ public class OTELService extends IntentService {
         */
 
         OtlpHttpSpanExporter exporter = OtlpHttpSpanExporter.builder()
-                .setEndpoint("http://dev-collector.fetchrewards.com:4317")
+                .setEndpoint("http://dev-collector.hostname.com:4317")
                 .setTimeout(30, TimeUnit.SECONDS)
                 //.setCompression("gzip")
                 //.addHeader("foo", "bar")
